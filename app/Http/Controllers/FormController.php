@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\View;
 use App\Http\Requests\formCreateRequest;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Redirect;
+use App\Http\Controllers\TableController;
 
 class FormController extends Controller
 {
@@ -31,9 +32,12 @@ class FormController extends Controller
     // public function submit(Request $request)
     public function submit(formCreateRequest $request)
     {
-        $this->makeRequest($request->validated());
+        // $this->makeRequest($request->validated());
 
-        return $request;
+        // $controller = (new TableController($request->validated()));
+        // return redirect()->route('table');
+        return redirect()->action([TableController::class,'index'], ['data' => $request->validated()]);
+
     }
 
     public function makeRequest($data)
@@ -45,9 +49,6 @@ class FormController extends Controller
             'X-RapidAPI-Host' => $this->host
         ])->get($url);
 
-        // return redirect()->route('table', ['data' => $response->json()]);
-        // return View::make('table')->with('data', $response->json());
-        // return Redirect::to('/table')->with(['data'=>$response->json()]);
-        return Redirect('table')->with($response->json());
+        return $response->json();
     }
 }
