@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FormController;
+use App\Services\SymbolsService;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +18,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/form', [FormController::class, 'index']);
+
+Route::post('/form/submit', [FormController::class, 'submit']);
+
+Route::post('/symbols', function() {
+    return (new SymbolsService)->getSymbols();
+});
+
+Route::get('/table', function() {
+    return view('table');
+})->name('table');
