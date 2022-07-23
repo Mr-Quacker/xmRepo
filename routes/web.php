@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FormController;
+use App\Http\Controllers\TableController;
 use App\Services\SymbolsService;
 
 /*
@@ -27,6 +28,9 @@ Route::post('/symbols', function() {
     return (new SymbolsService)->getSymbols();
 });
 
-Route::get('/table', function() {
-    return view('table');
-})->name('table');
+// Route::get('/table', function() {
+//     return view('table');
+// })->name('table');
+
+Route::get('/table', [TableController::class, 'index'])->name('table');
+
