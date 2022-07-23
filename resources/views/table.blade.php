@@ -31,7 +31,7 @@
             </thead>
             <tbody>
                 @foreach ($data as $item)
-                    @if (!is_null($item))
+                    @if (!is_null($item) && !is_null($item['open']))
                         <tr>
                             <td>{{date('Y-m-d', $item['date'])}}</td>
                             <td>{{$item['open']}}</td>

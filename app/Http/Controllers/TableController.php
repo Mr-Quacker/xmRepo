@@ -33,7 +33,7 @@ class TableController extends Controller
                 return $item;
             }
         },$data['prices']);
-        (new EmailService)->prepareEmail($params);
+        (new EmailService)->sendEmail($params, $prices);
         return View::make('table')->with('data', $prices);
     }
 

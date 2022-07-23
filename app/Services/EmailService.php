@@ -4,31 +4,28 @@ namespace App\Services;
 
 use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mailer\Transport\SendmailTransport;
-use Symfony\Component\Mime\Email;
+use App\Mail\Email;
+use Illuminate\Mail\Mailable;
+use Illuminate\Support\Facades\Mail;
 
-class EmailService
+class EmailService extends Mailable
 {
 
-    public function prepareEmail($data)
+    public function sendEmail($data, $prices)
     {
-        $transport = new SendmailTransport();
-        $mailer = new Mailer($transport);
-
-        $companyName = (new SymbolsService())->getCompanyNameBySymbol($data['symbol']);
-        dd($companyName);
-
-        $email = (new Email())
-            ->from('someone@example.com')
-            ->to($data['email'])
-            ->subject($companyName ?? '')
-            ->text($this->prepareText($data));
-
-        $mailer->send($email);
+        Mail::to($data['email'])->send($this->prepareEmail($data, $prices));
     }
 
-    private function prepareText($data)
+    public function prepareEmail($data, $prices)
     {
-        return 'test';
+
+        $companyName = (new SymbolsService())->getCompanyNameBySymbol($data['symbol']);
+
+        return (new Email($data, $prices))
+            ->from('someone@example.com')
+            ->subject($companyName ?? '')
+            ->text('email');
+
     }
 
 }
