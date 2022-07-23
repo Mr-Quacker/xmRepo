@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Services\SymbolsService;
+use App\Services\EmailService;
 use Illuminate\Support\Facades\View;
 use App\Http\Requests\formCreateRequest;
 use Illuminate\Support\Facades\Http;
@@ -33,6 +33,7 @@ class TableController extends Controller
                 return $item;
             }
         },$data['prices']);
+        (new EmailService)->prepareEmail($params);
         return View::make('table')->with('data', $prices);
     }
 

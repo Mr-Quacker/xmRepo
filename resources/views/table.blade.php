@@ -44,8 +44,5 @@
                 @endforeach
             </tbody>
           </table>
-
-          <chart-container></chart-container>
-
     </body>
 </html>
