@@ -17,10 +17,10 @@ use App\Services\SymbolsService;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('form');
 });
 
-Route::get('/form', [FormController::class, 'index']);
+Route::get('/form', [FormController::class, 'index'])->name('form');
 
 Route::post('/form/submit', [FormController::class, 'submit']);
 

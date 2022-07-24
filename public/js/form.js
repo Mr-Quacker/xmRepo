@@ -15,13 +15,12 @@ $(document).ready(function () {
 
 function validateForm()
 {
-    // let error1 = validateSymbol()
-    // let error2 = validateStartDate()
-    // let error3 = validateEndDate()
-    // let error4 = validateDates()
-    // let error5 = validateEmail()
-    // return error1 || error2 || error3 || error4 || error5
-    return false
+    let error1 = validateSymbol()
+    let error2 = validateStartDate()
+    let error3 = validateEndDate()
+    let error4 = validateDates()
+    let error5 = validateEmail()
+    return error1 || error2 || error3 || error4 || error5
 }
 
 function validateSymbol()
@@ -58,6 +57,7 @@ function validateEndDate()
     } else {
         $('#end-date').removeClass('is-invalid')
     }
+    console.log(error)
     return error
 }
 
@@ -65,7 +65,10 @@ function validateDates()
 {
     let startDateText = new Date($('#start-date').val())
     let endDateText = new Date($('#end-date').val())
-    error = (
+    let startDateValidated = validateStartDate()
+    let endDateValidated = validateEndDate()
+
+    error = ( (startDateValidated || endDateValidated) ||
         (startDateText == 'Invalid Date') ||
         (endDateText  == 'Invalid Date') ||
         startDateText > endDateText)
