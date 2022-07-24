@@ -68,7 +68,6 @@
 
                 <div class="col-12 mt-3">
                     <button class="btn btn-primary" type="submit">Submit</button>
-                    <button class="btn btn-secondary">Clear</button>
                 </div>
             </form>
         </div>
